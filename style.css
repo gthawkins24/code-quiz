@@ -11,11 +11,15 @@ header p {
     color: rgb(202, 0, 202);
 }
 
+#highScores {
+    cursor: pointer;
+}
+
 #timer {
     color: black;
 }
 
-#intro {
+#introBox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,10 +27,75 @@ header p {
     text-align: center;
 }
 
-#intro h1 {
+#introBox h1 {
     font-size: 3rem;
 }
 
-#intro p {
+#introBox p {
     font-size: 2rem;
+}
+
+#introBox button {
+    background-color: #0c8a10;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#introBox button:hover {
+    background-color: rgb(202, 0, 202);
+}
+
+/* Questions Boxes */
+#question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0% 20%;
+    text-align: center;
+    display: none;
+}
+
+#question h1 {
+    font-size: 3rem;
+}
+
+#question p {
+    font-size: 2rem;
+}
+
+#question button {
+    background-color: #6602a0;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    margin: 1%;
+    cursor: pointer;
+}
+
+#question button:hover {
+    background-color: rgb(202, 0, 202);
+}
+
+#question button:active {
+    background-color: rgb(31, 253, 2);
+}
+
+#answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2%;
+    text-align: center;
 }
