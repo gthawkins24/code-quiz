@@ -53,7 +53,7 @@ header p {
 }
 
 /* Questions Boxes */
-#question {
+#questionBox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,15 +62,15 @@ header p {
     display: none;
 }
 
-#question h1 {
+#questionBox h1 {
     font-size: 3rem;
 }
 
-#question p {
+#questionBox p {
     font-size: 2rem;
 }
 
-#question button {
+#questionBox button {
     background-color: #6602a0;
     border: none;
     border-radius: 20px;
@@ -84,11 +84,11 @@ header p {
     cursor: pointer;
 }
 
-#question button:hover {
+#questionBox button:hover {
     background-color: rgb(202, 0, 202);
 }
 
-#question button:active {
+#questionBox button:active {
     background-color: rgb(31, 253, 2);
 }
 
