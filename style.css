@@ -88,14 +88,44 @@ header p {
     background-color: rgb(202, 0, 202);
 }
 
-#questionBox button:active {
-    background-color: rgb(31, 253, 2);
-}
-
 #answers {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 2%;
     text-align: center;
+}
+
+#solution {
+    text-align: left;
+}
+
+#initialEntryBox {
+    display: flex;
+    align-items: center;
+    margin: 0% 20%;
+    text-align: left;
+    display: none;
+}
+
+#initialEntryBox form {
+    display: flex;
+    flex-direction: row;
+}
+
+#initialEntryBox button {
+    background-color: #6602a0;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#initialEntryBox p {
+    font-size: 1.5rem;
 }

@@ -9,6 +9,9 @@ const answer3 = document.querySelector('#answer3');
 const answer4 = document.querySelector('#answer4');
 const answers = document.querySelector('.answers');
 const timer = document.querySelector('#timer');
+const solution = document.querySelector('#solution');
+const finalScore = document.querySelector('#finalscore');
+const initialEntryBox = document.querySelector('#initialEntryBox');
 let score = 0;
 let time = 75;
 
@@ -39,156 +42,47 @@ highScoresButton.addEventListener('click', function() {
     alert('You clicked me!');
 });
 
+const endGame = function() {
+    questionBox.style.display = "none";
+    initialEntryBox.style.display = "block";
+
+    finalScore.innerText = `Your final score is: ${score}`;
+
+    console.log('Entered end game');
+}
+
 const correctAnswer = function() {
-    score++;
+    score = score + time;
     console.log('Correct!');
     console.log(score);
+    solution.innerText = `Correct! Score: ${score}`
 }
 
 const wrongAnswer = function() {
     time = time - 10;
     console.log('Wrong!')
     console.log(score);
+    solution.innerText = `Wrong! Score: ${score}`
 }
 
 const clockOperation = function() {
-    timer.innerText = time;
-    setInterval(function() {
         timer.innerText = time;
         time--;
-    }, 1000);
-}
 
+        const timerSet = setInterval(function() {
+        if (time > 0) {
+            timer.innerText = time;
+            time--;
+        } else {
+            time = 0;
+            timer.innerText = 0;
+            clearInterval(timerSet);
+            endGame();
+        }
+    }, 1000)
+};
 function question1() {
 
-    introBox.style.display = "none";
-    questionBox.style.display = "block";
-    
-    question.innerText = questions.question1;
-    answer1.innerText = questions.answers1[0];
-    answer2.innerText = questions.answers1[1];
-    answer3.innerText = questions.answers1[2];
-    answer4.innerText = questions.answers1[3];
-
-    answer1.addEventListener('click', correctAnswer);
-    answer2.addEventListener('click', wrongAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', wrongAnswer);
-
-    answers.addEventListener('click', function() {
-        question2(removeListener);
-    });
-}
-
-const question2 = function(callback) {
-    question.innerText = questions.question2;
-    answer1.innerText = questions.answers2[0];
-    answer2.innerText = questions.answers2[1];
-    answer3.innerText = questions.answers2[2];
-    answer4.innerText = questions.answers2[3];
-
-    answer1.addEventListener('click', correctAnswer);
-    answer2.addEventListener('click', wrongAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', wrongAnswer);
-
-    answers.addEventListener('click', function() {
-        question3(removeListener);
-    });
-
-    callback();
-}
-
-const question3 = function(callback) {
-    question.innerText = questions.question3;
-    answer1.innerText = questions.answers3[0];
-    answer2.innerText = questions.answers3[1];
-    answer3.innerText = questions.answers3[2];
-    answer4.innerText = questions.answers3[3];
-
-    answer1.addEventListener('click', wrongAnswer);
-    answer2.addEventListener('click', correctAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', wrongAnswer);
-
-    answers.addEventListener('click', function() {
-        question4(removeListener);
-    });
-
-    callback();
-}
-
-const question4 = function(callback) {
-    question.innerText = questions.question4;
-    answer1.innerText = questions.answers4[0];
-    answer2.innerText = questions.answers4[1];
-    answer3.innerText = questions.answers4[2];
-    answer4.innerText = questions.answers4[3];
-
-    answer1.addEventListener('click', correctAnswer);
-    answer2.addEventListener('click', wrongAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', wrongAnswer);
-
-    answers.addEventListener('click', function() {
-        question5(removeListener);
-    });
-}
-
-const question5 = function(callback) {
-    question.innerText = questions.question5;
-    answer1.innerText = questions.answers5[0];
-    answer2.innerText = questions.answers5[1];
-    answer3.innerText = questions.answers5[2];
-    answer4.innerText = questions.answers5[3];
-
-    answer1.addEventListener('click', wrongAnswer);
-    answer2.addEventListener('click', wrongAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', correctAnswer);
-
-    answers.addEventListener('click', function() {
-        question6(removeListener);
-    });
-
-    callback();
-}
-
-const question6 = function(callback) {
-    question.innerText = questions.question6;
-    answer1.innerText = questions.answers6[0];
-    answer2.innerText = questions.answers6[1];
-    answer3.innerText = questions.answers6[2];
-    answer4.innerText = questions.answers6[3];
-
-    answer1.addEventListener('click', wrongAnswer);
-    answer2.addEventListener('click', correctAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', wrongAnswer);
-
-    answers.addEventListener('click', function() {
-        question7(removeListener);
-    });
-
-    callback();
-}
-
-const question7 = function(callback) {
-    question.innerText = questions.question7;
-    answer1.innerText = questions.answers7[0];
-    answer2.innerText = questions.answers7[1];
-    answer3.innerText = questions.answers7[2];
-    answer4.innerText = questions.answers7[3];
-
-    answer1.addEventListener('click', wrongAnswer);
-    answer2.addEventListener('click', correctAnswer);
-    answer3.addEventListener('click', wrongAnswer);
-    answer4.addEventListener('click', wrongAnswer);
-
-    callback();
-}
-
-const removeListener = function() {
     answer1.removeEventListener('click', correctAnswer);
     answer1.removeEventListener('click', wrongAnswer);
     answer2.removeEventListener('click', correctAnswer);
@@ -197,20 +91,232 @@ const removeListener = function() {
     answer3.removeEventListener('click', wrongAnswer);
     answer4.removeEventListener('click', correctAnswer);
     answer4.removeEventListener('click', wrongAnswer);
+
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question1;
+        answer1.innerText = questions.answers1[0];
+        answer2.innerText = questions.answers1[1];
+        answer3.innerText = questions.answers1[2];
+        answer4.innerText = questions.answers1[3];
+
+        answer1.addEventListener('click', correctAnswer);
+        answer2.addEventListener('click', wrongAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', wrongAnswer);
+
+        answers.addEventListener('click', question2);
+    };
+
+    innerFunction();
 };
 
-startButton.addEventListener('click', function() {
-    question1(removeListener);
-});
+const question2 = function() {
+    answer1.removeEventListener('click', correctAnswer);
+    answer1.removeEventListener('click', wrongAnswer);
+    answer2.removeEventListener('click', correctAnswer);
+    answer2.removeEventListener('click', wrongAnswer);
+    answer3.removeEventListener('click', correctAnswer);
+    answer3.removeEventListener('click', wrongAnswer);
+    answer4.removeEventListener('click', correctAnswer);
+    answer4.removeEventListener('click', wrongAnswer);
+
+    answers.removeEventListener('click', question1);
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question2;
+        answer1.innerText = questions.answers2[0];
+        answer2.innerText = questions.answers2[1];
+        answer3.innerText = questions.answers2[2];
+        answer4.innerText = questions.answers2[3];
+
+        answer1.addEventListener('click', correctAnswer);
+        answer2.addEventListener('click', wrongAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', wrongAnswer);
+
+        answers.addEventListener('click', question3);
+        };
+    innerFunction();
+}
+
+const question3 = function() {
+    answer1.removeEventListener('click', correctAnswer);
+    answer1.removeEventListener('click', wrongAnswer);
+    answer2.removeEventListener('click', correctAnswer);
+    answer2.removeEventListener('click', wrongAnswer);
+    answer3.removeEventListener('click', correctAnswer);
+    answer3.removeEventListener('click', wrongAnswer);
+    answer4.removeEventListener('click', correctAnswer);
+    answer4.removeEventListener('click', wrongAnswer);
+
+    answers.removeEventListener('click', question2);
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question3;
+        answer1.innerText = questions.answers3[0];
+        answer2.innerText = questions.answers3[1];
+        answer3.innerText = questions.answers3[2];
+        answer4.innerText = questions.answers3[3];
+
+        answer1.addEventListener('click', wrongAnswer);
+        answer2.addEventListener('click', correctAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', wrongAnswer);
+
+        answers.addEventListener('click', question4);
+        };
+
+    innerFunction();
+}
+
+const question4 = function() {
+    answer1.removeEventListener('click', correctAnswer);
+    answer1.removeEventListener('click', wrongAnswer);
+    answer2.removeEventListener('click', correctAnswer);
+    answer2.removeEventListener('click', wrongAnswer);
+    answer3.removeEventListener('click', correctAnswer);
+    answer3.removeEventListener('click', wrongAnswer);
+    answer4.removeEventListener('click', correctAnswer);
+    answer4.removeEventListener('click', wrongAnswer);
+
+    answers.removeEventListener('click', question3);
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question4;
+        answer1.innerText = questions.answers4[0];
+        answer2.innerText = questions.answers4[1];
+        answer3.innerText = questions.answers4[2];
+        answer4.innerText = questions.answers4[3];
+
+        answer1.addEventListener('click', correctAnswer);
+        answer2.addEventListener('click', wrongAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', wrongAnswer);
+
+        answers.addEventListener('click', question5);
+        };
+
+    innerFunction();
+}
+
+const question5 = function() {
+    answer1.removeEventListener('click', correctAnswer);
+    answer1.removeEventListener('click', wrongAnswer);
+    answer2.removeEventListener('click', correctAnswer);
+    answer2.removeEventListener('click', wrongAnswer);
+    answer3.removeEventListener('click', correctAnswer);
+    answer3.removeEventListener('click', wrongAnswer);
+    answer4.removeEventListener('click', correctAnswer);
+    answer4.removeEventListener('click', wrongAnswer);
+
+    answers.removeEventListener('click', question4);
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question5;
+        answer1.innerText = questions.answers5[0];
+        answer2.innerText = questions.answers5[1];
+        answer3.innerText = questions.answers5[2];
+        answer4.innerText = questions.answers5[3];
+
+        answer1.addEventListener('click', wrongAnswer);
+        answer2.addEventListener('click', wrongAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', correctAnswer);
+
+        answers.addEventListener('click', question6);
+        };
+
+    innerFunction();
+}
+
+const question6 = function() {
+    answer1.removeEventListener('click', correctAnswer);
+    answer1.removeEventListener('click', wrongAnswer);
+    answer2.removeEventListener('click', correctAnswer);
+    answer2.removeEventListener('click', wrongAnswer);
+    answer3.removeEventListener('click', correctAnswer);
+    answer3.removeEventListener('click', wrongAnswer);
+    answer4.removeEventListener('click', correctAnswer);
+    answer4.removeEventListener('click', wrongAnswer);
+
+    answers.removeEventListener('click', question5);
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question6;
+        answer1.innerText = questions.answers6[0];
+        answer2.innerText = questions.answers6[1];
+        answer3.innerText = questions.answers6[2];
+        answer4.innerText = questions.answers6[3];
+
+        answer1.addEventListener('click', wrongAnswer);
+        answer2.addEventListener('click', correctAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', wrongAnswer);
+
+        answers.addEventListener('click', question7);
+        };
+
+    innerFunction();
+}
+
+const question7 = function() {
+    answer1.removeEventListener('click', correctAnswer);
+    answer1.removeEventListener('click', wrongAnswer);
+    answer2.removeEventListener('click', correctAnswer);
+    answer2.removeEventListener('click', wrongAnswer);
+    answer3.removeEventListener('click', correctAnswer);
+    answer3.removeEventListener('click', wrongAnswer);
+    answer4.removeEventListener('click', correctAnswer);
+    answer4.removeEventListener('click', wrongAnswer);
+
+    answers.removeEventListener('click', question6);
+
+        const innerFunction = function() {
+
+        introBox.style.display = "none";
+        questionBox.style.display = "block";
+        
+        question.innerText = questions.question7;
+        answer1.innerText = questions.answers7[0];
+        answer2.innerText = questions.answers7[1];
+        answer3.innerText = questions.answers7[2];
+        answer4.innerText = questions.answers7[3];
+
+        answer1.addEventListener('click', wrongAnswer);
+        answer2.addEventListener('click', correctAnswer);
+        answer3.addEventListener('click', wrongAnswer);
+        answer4.addEventListener('click', wrongAnswer);
+
+        answers.addEventListener('click', endGame);
+        };
+
+    innerFunction();
+}
+
+startButton.addEventListener('click', question1);
 startButton.addEventListener('click', clockOperation);
-
-function one(callback) {
-    console.log("first function executed");
-    callback();
-}
-
-function two() {
-    console.log("second function executed");
-}
-
-one(two)
