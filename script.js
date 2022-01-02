@@ -1,4 +1,4 @@
-'use strict';
+
 
 const highScoresButton = document.querySelector('#highScores');
 const startButton = document.querySelector('#startButton');
@@ -10,10 +10,18 @@ const answer4 = document.querySelector('#answer4');
 const answers = document.querySelector('.answers');
 const timer = document.querySelector('#timer');
 const solution = document.querySelector('#solution');
-const finalScore = document.querySelector('#finalscore');
+const finalScore = document.querySelector('#finalScore');
 const initialEntryBox = document.querySelector('#initialEntryBox');
+const initialsSubmit = document.querySelector('#submit');
+const initials = document.querySelector('#initials');
+const backButton = document.querySelector('#backButton');
+const clearScores = document.querySelector('#clearScores');
+const highScoresBox = document.querySelector('#highScoresBox');
+
 let score = 0;
 let time = 75;
+
+
 
 const questions = {
     question1: 'Question 1: What is JavaScript?',
@@ -42,11 +50,72 @@ highScoresButton.addEventListener('click', function() {
     alert('You clicked me!');
 });
 
+let highScoresObject = [
+    {initials: initials.value, score: score}
+]
+const myScores = JSON.parse(localStorage.getItem('highScoresObject'));
+highScoresObject.push(myScores);
+
+const highScores = function() {
+
+
+
+
+    localStorage.setItem('highScoresObject', JSON.stringify(highScoresObject));
+
+    initialEntryBox.style.display = "none";
+    highScoresBox.style.display = 'block'
+
+    console.log(highScoresObject);
+    console.log(myScores);
+    console.log('1st')
+};
+
+for (let i = 0; i<=highScoresObject.length; i++) {
+    console.log(highScoresObject[i])
+    
+}
+// console.log(highScoresObject[0]);
+// console.log(highScoresObject[1]);
+// console.log(highScoresObject[2]);
+// console.log(highScoresObject);
+// highScores();
+// function allStorage() {
+
+//     var archive = [],
+//         keys = Object.keys(localStorage),
+//         i = 0, key;
+
+//     for (; key = keys[i]; i++) {
+//         archive.push( key + ': ' + localStorage.getItem(key));
+//     }
+
+//     console.log(archive);
+// }
+
+// let archive = [];
+// const keys = JSON.parse(localStorage.getItem(initials.value));
+// const values = Object.values(localStorage);
+// const keyName = JSON.parse(localStorage.key(1));
+// // const key = keys[1];
+// const value = values[1];
+// // archive.push(localStorage.getItem(key));
+// console.log(window.localStorage.getItem(initials.value));
+// console.log(keys);
+// console.log(values);
+// console.log(keyName);
+
+
+// allStorage();
+
 const endGame = function() {
+    time = 0;
     questionBox.style.display = "none";
     initialEntryBox.style.display = "block";
 
     finalScore.innerText = `Your final score is: ${score}`;
+
+    submit.addEventListener('click', highScores);
 
     console.log('Entered end game');
 }
@@ -60,6 +129,7 @@ const correctAnswer = function() {
 
 const wrongAnswer = function() {
     time = time - 10;
+    score = score - 10;
     console.log('Wrong!')
     console.log(score);
     solution.innerText = `Wrong! Score: ${score}`
