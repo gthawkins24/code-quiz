@@ -139,3 +139,16 @@ header p {
     text-align: center;
     display: none;
 }
+
+#highScoresBox button {
+    background-color: #6602a0;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    cursor: pointer;
+}

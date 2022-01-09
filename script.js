@@ -1,4 +1,4 @@
-
+'use strict';
 
 const highScoresButton = document.querySelector('#highScores');
 const startButton = document.querySelector('#startButton');
@@ -17,11 +17,10 @@ const initials = document.querySelector('#initials');
 const backButton = document.querySelector('#backButton');
 const clearScores = document.querySelector('#clearScores');
 const highScoresBox = document.querySelector('#highScoresBox');
+const scoresList = document.querySelector("#scoresList");
 
 let score = 0;
 let time = 75;
-
-
 
 const questions = {
     question1: 'Question 1: What is JavaScript?',
@@ -46,67 +45,58 @@ const questions = {
     answers7: ['Position', 'Window', 'Standard', 'Location']
 }
 
+const clearHighscores = function () {
+    localStorage.removeItem("highscores");
+    
+    scoresList.innerHTML = "";
+}
+
+const displayHighScores = function() {
+    let highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+    highscores.sort(function (a, b) {
+        return b.score - a.score;
+    });
+
+    highscores.forEach(function(score) {
+        let scoreLi = document.createElement("li");
+        scoreLi.textContent = `${score.initials}: ${score.score}`;
+
+        scoresList.appendChild(scoreLi);
+    });
+}
+
 highScoresButton.addEventListener('click', function() {
-    alert('You clicked me!');
+    introBox.style.display = "none";
+    questionBox.style.display = "none";
+    initialEntryBox.style.display = "none";
+    highScoresBox.style.display = 'block';
+    highScoresButton.removeEventListener('click', function() {
+        introBox.style.display = "none";
+        questionBox.style.display = "none";
+        initialEntryBox.style.display = "none";
+        highScoresBox.style.display = 'block';
+    });
+    displayHighScores();
 });
 
-let highScoresObject = [
-    {initials: initials.value, score: score}
-]
-const myScores = JSON.parse(localStorage.getItem('highScoresObject'));
-highScoresObject.push(myScores);
-
 const highScores = function() {
-
-
-
-
-    localStorage.setItem('highScoresObject', JSON.stringify(highScoresObject));
-
     initialEntryBox.style.display = "none";
-    highScoresBox.style.display = 'block'
+    highScoresBox.style.display = 'block';
 
-    console.log(highScoresObject);
-    console.log(myScores);
-    console.log('1st')
+    let highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+    let highScoresObject = {
+        initials: initials.value, 
+        score: score
+    }
+
+    highscores.push(highScoresObject);
+
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    displayHighScores();
 };
-
-for (let i = 0; i<=highScoresObject.length; i++) {
-    console.log(highScoresObject[i])
-    
-}
-// console.log(highScoresObject[0]);
-// console.log(highScoresObject[1]);
-// console.log(highScoresObject[2]);
-// console.log(highScoresObject);
-// highScores();
-// function allStorage() {
-
-//     var archive = [],
-//         keys = Object.keys(localStorage),
-//         i = 0, key;
-
-//     for (; key = keys[i]; i++) {
-//         archive.push( key + ': ' + localStorage.getItem(key));
-//     }
-
-//     console.log(archive);
-// }
-
-// let archive = [];
-// const keys = JSON.parse(localStorage.getItem(initials.value));
-// const values = Object.values(localStorage);
-// const keyName = JSON.parse(localStorage.key(1));
-// // const key = keys[1];
-// const value = values[1];
-// // archive.push(localStorage.getItem(key));
-// console.log(window.localStorage.getItem(initials.value));
-// console.log(keys);
-// console.log(values);
-// console.log(keyName);
-
-
-// allStorage();
 
 const endGame = function() {
     time = 0;
@@ -116,22 +106,16 @@ const endGame = function() {
     finalScore.innerText = `Your final score is: ${score}`;
 
     submit.addEventListener('click', highScores);
-
-    console.log('Entered end game');
 }
 
 const correctAnswer = function() {
     score = score + time;
-    console.log('Correct!');
-    console.log(score);
     solution.innerText = `Correct! Score: ${score}`
 }
 
 const wrongAnswer = function() {
     time = time - 10;
     score = score - 10;
-    console.log('Wrong!')
-    console.log(score);
     solution.innerText = `Wrong! Score: ${score}`
 }
 
@@ -390,3 +374,10 @@ const question7 = function() {
 
 startButton.addEventListener('click', question1);
 startButton.addEventListener('click', clockOperation);
+clearScores.addEventListener('click', clearHighscores);
+backButton.addEventListener('click', function() {
+    introBox.style.display = "none";
+    questionBox.style.display = "none";
+    initialEntryBox.style.display = "block";
+    highScoresBox.style.display = 'none';
+});
